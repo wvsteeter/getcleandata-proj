@@ -1,10 +1,10 @@
   ##set up environment
 library(dplyr)
 originalpath = getwd()
-if (!file.exists("ucidata")){
-  dir.create("ucidata")
+if (!file.exists("~/ucidata")){
+  dir.create("~/ucidata")
 }
-setwd("ucidata")
+setwd("~/ucidata")
 
 
   
@@ -77,6 +77,9 @@ for (i in klength:1) {
 finalsummary <- select(compTrainTest,-dataset) %>% 
   group_by(subject,activity) %>% 
   summarise_each(funs(mean))
+write.table(compTrainTest,file = "Composite-Cleaned-Data.txt",row.names = FALSE)
+write.table(finalsummary,file = "Composite-Cleaned-Data-Summary.txt",row.names = FALSE)
+write.csv(compTrainTest,file = "Composite-Cleaned-Data.csv",row.names = FALSE)
+write.csv(finalsummary,file = "Composite-Cleaned-Data-Summary.csv",row.names = FALSE)
+
 setwd(originalpath)
-write.table(finalsummary,file = "finalsummary.dat",row.names = FALSE)
-write.csv(finalsummary,file = "finalsummary.csv",row.names = FALSE)
